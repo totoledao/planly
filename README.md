@@ -100,7 +100,7 @@ To get a local copy up and running follow these simple steps.
    ```sh
    npm install
    ```
-3. Get the credentials from your project at [Firebase Console](https://console.firebase.google.com/) and create a **.env.local** file using them
+3. Get your project's credentials at [Firebase Console](https://console.firebase.google.com/) and create a **.env.local** file using them
     ```sh
     NEXT_PUBLIC_API_KEY=
     NEXT_PUBLIC_AUTH_DOMAIN=
