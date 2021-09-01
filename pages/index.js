@@ -1,76 +1,31 @@
-import { 
-  Container,
-  Box,
-  Text,
-  Heading,
-  Input,
-  FormControl,
-  FormLabel,
-  Button,
-  FormHelperText,
-} from "@chakra-ui/react"
-import Link from 'next/link'
-
-import { useFormik } from 'formik';
-import * as yup from 'yup';
 import firebase from '../config/firebase';
-
-import styles from '../styles/Home.module.css'
-
-const validationSchema = yup.object().shape({
-  email: yup.string().email("Invalid email").required("Please fill out the email field"),
-  password: yup.string().required("Please fill out the password field"),
-});
+import Login from "../components/Login";
+import Scheduler from "../components/Scheduler";
+import { useEffect, useState } from 'react';
+import { Container, Spinner } from '@chakra-ui/react';
 
 export default function Home() {
-  const {
-    values,
-    errors,
-    touched,
-    handleChange,
-    handleBlur,
-    handleSubmit,
-    isSubmitting
-  } = useFormik({
-    onSubmit: async (values, form) => {
-      const user = await firebase.auth().signInWithEmailAndPassword(values.email, values.password);
-      console.log(await user);
-    },
-    validationSchema,
-    initialValues: {
-      email: "",      
-      password: ""
+  const [userAuth, setUserAuth] = useState({
+    loading: true,
+    user: false
+  });
+
+    useEffect(() =>  {
+      firebase.auth().onAuthStateChanged(user => setUserAuth({loading: false, user}));
+    }, [])
+
+    if(userAuth.loading) {
+      return(
+         <Container paddingTop="20%" centerContent>
+          <Spinner size="xl" color="#1DB954" label="loading..." thickness="5px" />
+         </Container>
+      )
     }
-  })
 
   return (
-    <Container flex={1}>
-
-    <Box paddingTop={4}>
-      <Heading variant="logo" paddingBottom={4}> planly </Heading>
-      <Text paddingBottom={4}>Crie sua agenda compartilhada</Text>
-    </Box>
-
-    <Box paddingTop={4}>
-
-      <FormControl isRequired id="email" paddingBottom={2}>
-        <FormLabel>Email</FormLabel>
-          <Input type="email" value={values.email} onChange={handleChange} onBlur={handleBlur} />        
-          {touched.email && <FormHelperText textColor="red"> {errors.email} </FormHelperText>}
-      </FormControl>
-
-      <FormControl isRequired id="password" paddingBottom={10}>
-        <FormLabel>Senha</FormLabel>
-          <Input type="password" value={values.password} onChange={handleChange} onBlur={handleBlur} />        
-          {touched.password && <FormHelperText textColor="red"> {errors.password} </FormHelperText>}
-      </FormControl>
-
-    </Box>
-
-    <Button width="100%" onClick={handleSubmit} disabled={isSubmitting} isLoading={isSubmitting}>Entrar</Button>
-    <Link href="/signup">Ainda não tem uma conta? Cadastre-se!</Link>
-    
-    </Container>
-    
+    userAuth.user
+    ? <Scheduler />
+    : <Login />
   )
+      
 }
