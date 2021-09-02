@@ -12,10 +12,10 @@ const firebaseConfig = {
   measurementId: process.env.NEXT_PUBLIC_MEASUREMENT_ID
 };
 
-const app = firebase.apps.length
+const firebaseClient = firebase.apps.length
   ? firebase.app()
   :firebase.initializeApp(firebaseConfig);
 
 export const persistentMode = firebase.auth.Auth.Persistence.LOCAL;
 
-export default app;
+export default firebaseClient;

@@ -16,7 +16,7 @@ import Link from 'next/link'
 
 import { useFormik } from 'formik';
 import * as yup from 'yup';
-import firebase from '../config/firebase';
+import firebaseClient from '../config/firebase';
 
 import styles from '../styles/Home.module.css'
 
@@ -37,7 +37,7 @@ export default function Signup() {
     isSubmitting
   } = useFormik({
     onSubmit: async (values, form) => {
-      const user = await firebase.auth().createUserWithEmailAndPassword(values.email, values.password);
+      const user = await firebaseClient.auth().createUserWithEmailAndPassword(values.email, values.password);
       console.log(user);
     },
     validationSchema,

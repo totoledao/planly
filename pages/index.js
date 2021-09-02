@@ -1,4 +1,4 @@
-import firebase from '../config/firebase';
+import firebaseClient from '../config/firebase/client';
 import Login from "../components/Login";
 import Scheduler from "../components/Scheduler";
 import { useEffect, useState } from 'react';
@@ -11,7 +11,7 @@ export default function Home() {
   });
 
     useEffect(() =>  {
-      firebase.auth().onAuthStateChanged(user => setUserAuth({loading: false, user}));
+      firebaseClient.auth().onAuthStateChanged(user => setUserAuth({loading: false, user}));
     }, [])
 
     if(userAuth.loading) {

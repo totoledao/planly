@@ -1,10 +1,10 @@
 import { Button, Container } from "@chakra-ui/react";
-import firebase from '../../config/firebase';
+import firebaseClient from '../../config/firebase/client';
 
 export default function Scheduler() {
 
-  const logout = () => firebase.auth().signOut();
-  
+  const logout = () => firebaseClient.auth().signOut();
+
   return(
     <Container>
 
