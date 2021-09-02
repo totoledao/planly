@@ -16,7 +16,7 @@ import Link from 'next/link'
 
 import { useFormik } from 'formik';
 import * as yup from 'yup';
-import firebaseClient from '../config/firebase';
+import firebaseClient from '../config/firebase/client';
 
 import styles from '../styles/Home.module.css'
 
