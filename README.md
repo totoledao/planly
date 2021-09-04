@@ -77,6 +77,7 @@ crash course by [codar.me](https://codar.me/).
 * Chakra UI
 * Formik
 * Yup
+* Axios
 
 <!-- GETTING STARTED -->
 ## Getting Started
@@ -102,6 +103,8 @@ To get a local copy up and running follow these simple steps.
    ```
 3. Get your project's credentials at [Firebase Console](https://console.firebase.google.com/) and create a **.env.local** file using them
     ```sh
+      # Firebase client secrets
+
     NEXT_PUBLIC_API_KEY=
     NEXT_PUBLIC_AUTH_DOMAIN=
     NEXT_PUBLIC_PROJECT_ID=
@@ -109,6 +112,15 @@ To get a local copy up and running follow these simple steps.
     NEXT_PUBLIC_MESSAGING_SENDER_ID=
     NEXT_PUBLIC_APP_ID=
     NEXT_PUBLIC_MEASUREMENT_ID=
+
+      # Firebase-admin server secrets
+
+    FIREBASE_PROJECT_ID=
+    FIREBASE_PRIVATE_KEY_ID=
+    FIREBASE_PRIVATE_KEY=
+    FIREBASE_CLIENT_EMAIL=
+    FIREBASE_CLIENT_ID=
+    FIREBASE_CLIENT_CERT=
     ```
 4. Start the development server
    ```sh
