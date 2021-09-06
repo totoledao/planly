@@ -1,4 +1,5 @@
-import { 
+import {
+  Center,
   Container,
   Box,
   Text,
@@ -44,34 +45,35 @@ export default function Login() {
     }
   })
 
-  return (
-    <Container flex={1}>
+  return (  
+    <Center h="100vh">
+      <Container>
 
-    <Box paddingTop={4}>
-      <Heading variant="logo" paddingBottom={4}> planly </Heading>
-      <Text paddingBottom={4}>Crie sua agenda compartilhada</Text>
-    </Box>
+        <Box paddingTop={0}>
+          <Heading variant="logo" paddingBottom={4}> planly </Heading>
+          <Text paddingBottom={4}>Crie sua agenda compartilhada</Text>
+        </Box>
 
-    <Box paddingTop={4}>
+        <Box paddingTop={4}>
 
-      <FormControl isRequired id="email" paddingBottom={2}>
-        <FormLabel>Email</FormLabel>
-          <Input type="email" value={values.email} onChange={handleChange} onBlur={handleBlur} />        
-          {touched.email && <FormHelperText textColor="red"> {errors.email} </FormHelperText>}
-      </FormControl>
+          <FormControl isRequired id="email" paddingBottom={2}>
+            <FormLabel>Email</FormLabel>
+              <Input variant="styled" type="email" value={values.email} onChange={handleChange} onBlur={handleBlur} />        
+              {touched.email && <FormHelperText textColor="red"> {errors.email} </FormHelperText>}
+          </FormControl>
 
-      <FormControl isRequired id="password" paddingBottom={10}>
-        <FormLabel>Senha</FormLabel>
-          <Input type="password" value={values.password} onChange={handleChange} onBlur={handleBlur} />        
-          {touched.password && <FormHelperText textColor="red"> {errors.password} </FormHelperText>}
-      </FormControl>
+          <FormControl isRequired id="password" paddingBottom={10}>
+            <FormLabel>Senha</FormLabel>
+              <Input type="password" value={values.password} onChange={handleChange} onBlur={handleBlur} />        
+              {touched.password && <FormHelperText textColor="red"> {errors.password} </FormHelperText>}
+          </FormControl>
 
-    </Box>
+          </Box>
 
-    <Button width="100%" onClick={handleSubmit} disabled={isSubmitting} isLoading={isSubmitting}>Entrar</Button>
-    <Link href="/signup">Ainda não tem uma conta? Cadastre-se!</Link>
-    
-    </Container>
-    
+          <Button width="100%" onClick={handleSubmit} disabled={isSubmitting} isLoading={isSubmitting}>Entrar</Button>
+          <Link href="/signup">Ainda não tem uma conta? Cadastre-se!</Link>
+
+        </Container>
+      </Center>
   )
 }

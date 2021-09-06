@@ -1,5 +1,6 @@
 import { 
   Container,
+  Center,
   Box,
   Text,
   Heading,
@@ -49,42 +50,44 @@ export default function Signup() {
   })
 
   return (
-    <Container flex={1}>
+    <Center h="100vh">
+      <Container>
+    
+        <Box>
+          <Heading variant="logo" paddingBottom={4}> planly </Heading>
+          <Text paddingBottom={4}>Crie sua agenda compartilhada</Text>
+        </Box>
 
-    <Box paddingTop={4}>
-      <Heading variant="logo" paddingBottom={4}> planly </Heading>
-      <Text paddingBottom={4}>Crie sua agenda compartilhada</Text>
-    </Box>
+        <Box paddingTop={4}>
 
-    <Box paddingTop={4}>
+        <FormControl isRequired id="email" paddingBottom={2}>
+          <FormLabel>Email</FormLabel>
+            <Input type="email" value={values.email} onChange={handleChange} onBlur={handleBlur} />        
+            {touched.email && <FormHelperText textColor="red"> {errors.email} </FormHelperText>}
+        </FormControl>
 
-      <FormControl isRequired id="email" paddingBottom={2}>
-        <FormLabel>Email</FormLabel>
-          <Input type="email" value={values.email} onChange={handleChange} onBlur={handleBlur} />        
-          {touched.email && <FormHelperText textColor="red"> {errors.email} </FormHelperText>}
-      </FormControl>
+        <FormControl isRequired id="password" paddingBottom={10}>
+          <FormLabel>Senha</FormLabel>
+            <Input type="password" value={values.password} onChange={handleChange} onBlur={handleBlur} />        
+            {touched.password && <FormHelperText textColor="red"> {errors.password} </FormHelperText>}
+        </FormControl>
+        
+        <FormControl isRequired id="username" >
+          <InputGroup size="lg" width="100%" paddingBottom={10}>
+            <InputLeftAddon>planly/</InputLeftAddon>          
+              <Input type="username" value={values.username} onChange={handleChange} onBlur={handleBlur}/>          
+            {touched.username && <FormHelperText textColor="red"> {errors.username} </FormHelperText>}
+          </InputGroup>
+        </FormControl>
 
-      <FormControl isRequired id="password" paddingBottom={10}>
-        <FormLabel>Senha</FormLabel>
-          <Input type="password" value={values.password} onChange={handleChange} onBlur={handleBlur} />        
-          {touched.password && <FormHelperText textColor="red"> {errors.password} </FormHelperText>}
-      </FormControl>
+        </Box>
+
+        <Button width="100%" onClick={handleSubmit} disabled={isSubmitting} isLoading={isSubmitting}>Cadastrar</Button>
+        
+        <Link href="/">Já tem tem uma conta? Clique aqui!</Link>
       
-      <FormControl isRequired id="username" >
-        <InputGroup size="lg" width="100%" paddingBottom={10}>
-          <InputLeftAddon>planly/</InputLeftAddon>          
-            <Input type="username" value={values.username} onChange={handleChange} onBlur={handleBlur}/>          
-          {touched.username && <FormHelperText textColor="red"> {errors.username} </FormHelperText>}
-        </InputGroup>
-      </FormControl>
-
-    </Box>
-
-    <Button width="100%" onClick={handleSubmit} disabled={isSubmitting} isLoading={isSubmitting}>Entrar</Button>
-    
-    <Link href="/">Já tem tem uma conta? Clique aqui!</Link>
-    
-    </Container>
+      </Container>
+    </Center>
     
   )
 }

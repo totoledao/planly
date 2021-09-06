@@ -1,4 +1,8 @@
-import { Button, Container } from "@chakra-ui/react";
+import { 
+  Center,
+  Container,
+  Button
+} from "@chakra-ui/react";
 import firebaseClient from '../../config/firebase/client';
 
 export default function Scheduler() {
@@ -6,12 +10,14 @@ export default function Scheduler() {
   const logout = () => firebaseClient.auth().signOut();
 
   return(
-    <Container>
+    <Center h="100vh">
+      <Container>
 
-    <div>Agenda</div>
+      <div>Agenda</div>
 
-    <Button onClick={logout}>Sair</Button>
+      <Button onClick={logout}>Sair</Button>
 
-    </Container>
+      </Container>
+    </Center>
   )
 }
