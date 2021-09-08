@@ -1,8 +1,8 @@
 import admin from "firebase-admin";
 
-const firebaseAdmin = firebase.apps.length
-  ? firebase.app()
-  : firebase.initializeApp({
+const app = admin.apps.length
+  ? admin.app()
+  : admin.initializeApp({
       credential: admin.credential.cert({
         type: "service_account",
         auth_uri: "https://accounts.google.com/o/oauth2/auth",
@@ -17,4 +17,4 @@ const firebaseAdmin = firebase.apps.length
       })
     });
 
-export default firebaseAdmin;
+export default admin;

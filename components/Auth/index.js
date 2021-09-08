@@ -1,24 +1,26 @@
 import React,{ createContext, useState, useEffect, useContext } from "react"
+import axios from 'axios';
 
 import firebaseClient, {persistentMode} from "../../config/firebase/client";
 
 const AuthContext = createContext([{},() => {}]);
 
-export const signup = async ( {email, password} ) => {
+export const signup = async ( {email, password, username} ) => {
   try {
     await firebaseClient.auth().createUserWithEmailAndPassword(email, password);
-    await login(email, password);
-    //TODO setupProfile( {token, username} )
-    // const { data } = await axios({
-    //   method: 'post',
-    //   url: '/api/profile',
-    //   data: {
-    //     username: values.username
-    //   },
-    //   header: {
-    //     'Authentication': `Bearer ${user.getToken()}`
-    //   },        
-    // })
+
+    const user = await login( {email, password} );
+    const token = await user.getIdToken();
+
+    const { data } = await axios({
+      method: 'post',
+      url: '/api/profile',
+      data: { username },
+      headers: {
+        'Authorization': `Bearer ${token}`
+      },        
+    })
+    
   } catch (error) {
     console.log("Signup Error:", error);
   }
@@ -28,6 +30,7 @@ export const login = async ( {email, password} ) => {
   firebaseClient.auth().setPersistence(persistentMode);
   try {
     await firebaseClient.auth().signInWithEmailAndPassword(email, password);
+    return firebaseClient.auth().currentUser;
   } catch (error) {
     console.log("Login Error:", error);
   }
