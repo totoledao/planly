@@ -2,7 +2,7 @@ import { useEffect } from 'react';
 import { useRouter } from 'next/router';
 
 import { useAuth } from '../components/Auth';
-import LoadingScreen from '../components/LoadingScreen/LoadingScreen';
+import LoadingScreen from '../components/LoadingScreen';
 
 export default function Home() {
   const [auth] = useAuth();

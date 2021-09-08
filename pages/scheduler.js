@@ -6,7 +6,8 @@ import {
 import { useEffect } from 'react';
 import { useRouter } from 'next/router';
 
-import { useAuth } from "../components/Auth";
+import { useAuth } from '../components/Auth';
+import LoadingScreen from '../components/LoadingScreen';
 
 export default function Scheduler() {
 
@@ -16,6 +17,10 @@ export default function Scheduler() {
   useEffect(() => {
     !auth.user && router.push('/');
   },[auth.user])
+
+  if(!auth.user) {
+    return ( <LoadingScreen /> )
+  }
 
   return(
     <Center h="100vh">
