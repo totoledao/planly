@@ -1,36 +1,18 @@
-import firebaseClient from '../config/firebase/client';
-import Login from "../components/Login";
-import Scheduler from "../components/Scheduler";
-import { useEffect, useState } from 'react';
-import { Center, Container, Heading, Spinner } from '@chakra-ui/react';
+import { useEffect } from 'react';
+import { useRouter } from 'next/router';
+
+import { useAuth } from '../components/Auth';
+import LoadingScreen from '../components/LoadingScreen/LoadingScreen';
 
 export default function Home() {
-  const [userAuth, setUserAuth] = useState({
-    loading: true,
-    user: false
-  });
+  const [auth] = useAuth();
+  const router = useRouter();
 
-    useEffect(() =>  {
-      firebaseClient.auth().onAuthStateChanged(user => setUserAuth({loading: false, user}));
-    }, [])
-
-    if(userAuth.loading) {
-      return(
-        <Center h="100vh">
-          <Container centerContent>
-
-            <Heading variant="logo" paddingBottom={4}> planly </Heading>
-            <Spinner size="xl" color="#1DB954" label="loading..." thickness="5px" />
-            
-         </Container>
-        </Center>
-      )
-    }
+  useEffect(() => {
+    auth.user ? router.push('/scheduler') : router.push('/login');
+  },[auth.user])
 
   return (
-    userAuth.user
-    ? <Scheduler />
-    : <Login />
+    <LoadingScreen />
   )
-      
 }

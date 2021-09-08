@@ -12,14 +12,14 @@ import {
   InputGroup,
   InputLeftAddon,
   InputRightAddon,
-} from "@chakra-ui/react"
-import Link from 'next/link'
-
+} from '@chakra-ui/react';
+import { useEffect } from 'react';
+import { useRouter } from 'next/router';
 import { useFormik } from 'formik';
 import * as yup from 'yup';
-import firebaseClient from '../config/firebase/client';
+import Link from 'next/link';
 
-import styles from '../styles/Home.module.css'
+import { useAuth } from '../components/Auth';
 
 const validationSchema = yup.object().shape({
   email: yup.string().email("Invalid email").required("Please fill out the email field"),
@@ -28,6 +28,9 @@ const validationSchema = yup.object().shape({
 });
 
 export default function Signup() {
+  const [auth, { signup }] = useAuth();
+  const router = useRouter();
+  
   const {
     values,
     errors,
@@ -37,10 +40,7 @@ export default function Signup() {
     handleSubmit,
     isSubmitting
   } = useFormik({
-    onSubmit: async (values, form) => {
-      const user = await firebaseClient.auth().createUserWithEmailAndPassword(values.email, values.password);
-      console.log(user);
-    },
+    onSubmit: signup,
     validationSchema,
     initialValues: {
       email: "",
@@ -48,6 +48,10 @@ export default function Signup() {
       password: ""
     }
   })
+
+  useEffect(() => {
+    auth.user && router.push('/scheduler');
+  },[auth.user])
 
   return (
     <Center h="100vh">

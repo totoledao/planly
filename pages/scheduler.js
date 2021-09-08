@@ -3,11 +3,19 @@ import {
   Container,
   Button
 } from "@chakra-ui/react";
-import firebaseClient from '../../config/firebase/client';
+import { useEffect } from 'react';
+import { useRouter } from 'next/router';
+
+import { useAuth } from "../components/Auth";
 
 export default function Scheduler() {
 
-  const logout = () => firebaseClient.auth().signOut();
+  const [auth, { logout }] = useAuth();
+  const router = useRouter();
+
+  useEffect(() => {
+    !auth.user && router.push('/');
+  },[auth.user])
 
   return(
     <Center h="100vh">

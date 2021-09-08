@@ -10,13 +10,13 @@ import {
   Button,
   FormHelperText,
 } from "@chakra-ui/react"
-import Link from 'next/link'
-
+import { useEffect } from "react";
+import { useRouter } from "next/router";
 import { useFormik } from 'formik';
 import * as yup from 'yup';
-import firebaseClient, { persistentMode } from '../../config/firebase/client';
+import Link from 'next/link'
 
-import styles from '../../styles/Home.module.css';
+import { useAuth } from '../components/Auth';
 
 const validationSchema = yup.object().shape({
   email: yup.string().email("Invalid email").required("Please fill out the email field"),
@@ -24,6 +24,15 @@ const validationSchema = yup.object().shape({
 });
 
 export default function Login() {
+  
+  const [auth, { login }] = useAuth();
+
+  const router = useRouter();
+
+  useEffect(() => {
+    auth.user ? router.push('/scheduler') : router.push('/login');
+  },[auth.user])
+
   const {
     values,
     errors,
@@ -33,11 +42,7 @@ export default function Login() {
     handleSubmit,
     isSubmitting
   } = useFormik({
-    onSubmit: async (values, form) => {
-      firebaseClient.auth().setPersistence(persistentMode);
-      const user = await firebaseClient.auth().signInWithEmailAndPassword(values.email, values.password);
-      console.log(await user);
-    },
+    onSubmit: login,
     validationSchema,
     initialValues: {
       email: "",      
