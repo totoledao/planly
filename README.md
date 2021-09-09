@@ -78,6 +78,7 @@ crash course by [codar.me](https://codar.me/).
 * Formik
 * Yup
 * Axios
+* date-fns
 
 <!-- GETTING STARTED -->
 ## Getting Started
