@@ -13,20 +13,25 @@ import { useRouter } from 'next/router';
 import { addDays, subDays } from 'date-fns';
 import axios from 'axios';
 
+import { getToken } from '../config/firebase/client'
 import { useAuth } from '../components/Auth';
 import { dateFormat, formatDate } from '../components/DateFormat';
 import LoadingScreen from '../components/LoadingScreen';
 
-const getSchedule = ( { token, when } ) => axios({
-  method: 'get',
-  url: '/api/schedule',
-  params: {
-    when    
-  },
-  headers: {
-    Authorization: `Bearer ${token}`
-  }
-});
+const getSchedule = async ( when ) =>{
+  const token = await getToken();
+
+  return axios({
+    method: 'get',
+    url: '/api/schedule',
+    params: {
+      when    
+    },
+    headers: {
+      Authorization: `Bearer ${token}`
+    }
+  })
+} 
 
 export default function Scheduler() {
 
@@ -44,8 +49,12 @@ export default function Scheduler() {
   }
 
   useEffect(() => {
-    !auth.user && router.push('/');
+    !auth.user && router.push('/');    
   },[auth.user])
+  
+  useEffect(() => {
+    getSchedule( when );
+  },[when])
 
   if(!auth.user) {
     return ( <LoadingScreen /> )

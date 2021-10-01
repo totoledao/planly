@@ -18,4 +18,6 @@ const firebaseClient = firebase.apps.length
 
 export const persistentMode = firebase.auth.Auth.Persistence.LOCAL;
 
+export const getToken = () => firebase.auth().currentUser?.getIdToken();
+
 export default firebaseClient;
