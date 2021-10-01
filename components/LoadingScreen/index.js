@@ -1,9 +1,9 @@
 import React from 'react';
 import { Center, Container, Heading, Spinner } from '@chakra-ui/react';
 
-export default function LoadingScreen() {  
+export default function LoadingScreen({verticalAlign = "100vh"}) {  
   return(
-    <Center h="100vh">
+    <Center height={verticalAlign}>
       <Container centerContent>
 
         <Heading variant="logo" paddingBottom={4}> planly </Heading>
