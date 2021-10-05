@@ -18,12 +18,12 @@ import { useAuth } from '../components/Auth';
 import { dateFormat, formatDate } from '../components/DateFormat';
 import LoadingScreen from '../components/LoadingScreen';
 
-const getSchedule = async ( when ) =>{
+const getScheduler = async ( when ) =>{
   const token = await getToken();
 
   return axios({
     method: 'get',
-    url: '/api/schedule',
+    url: '/api/scheduler',
     params: {
       when    
     },
@@ -49,14 +49,14 @@ export default function Scheduler() {
   }
 
   useEffect(() => {
-    !auth.user && router.push('/');    
+    !auth.user && router.push('/');      
   },[auth.user])
   
   useEffect(() => {
-    getSchedule( when );
+    getScheduler( when );
   },[when])
 
-  if(!auth.user) {
+  if(!auth.user) {    
     return ( <LoadingScreen /> )
   }
 

@@ -9,7 +9,7 @@ export default function Home() {
   const router = useRouter();
 
   useEffect(() => {
-    auth.user ? router.push('/scheduler') : router.push('/login');
+    auth.user ? router.push('/schedule') : router.push('/login');
   },[auth.user])
 
   return (
