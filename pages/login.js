@@ -63,7 +63,7 @@ export default function Login() {
 
           <FormControl isRequired id="email" paddingBottom={2}>
             <FormLabel>Email</FormLabel>
-              <Input variant="styled" type="email" value={values.email} onChange={handleChange} onBlur={handleBlur} />        
+              <Input type="email" value={values.email} onChange={handleChange} onBlur={handleBlur} />        
               {touched.email && <FormHelperText textColor="red"> {errors.email} </FormHelperText>}
           </FormControl>
 
